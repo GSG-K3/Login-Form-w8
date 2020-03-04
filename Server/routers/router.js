@@ -5,10 +5,16 @@ const jwt = require('jsonwebtoken');
 const db_user = require('../Models/db_users');
 const salt = 'GyrfG#$#1254U.ygt';
 
-router.get('/user/profile', (req, res) => {
+router.get('/user/profile/:userId', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'Public', 'profile.html'));
 });
 
+router.get('/api/user/profile/:userId', (req, res) => {
+  
+  db_user.getUserById(req.params.userId ,(err, result)=>{
+   res.send(result[0])
+  })
+});
 router.post('/user/login', (req, res) => {
   const userEmail = req.body.logInEmail;
   const password = req.body.logInPassword;
@@ -21,7 +27,7 @@ router.post('/user/login', (req, res) => {
         var token = jwt.sign({ email: userEmail }, salt);
         res.cookie('token', token);
         if (db_user.checkAuthentication(token, salt)) {
-          res.redirect(`/user/profile/${result[0].id}`);
+          res.redirect(`/user/profile/${result[0].user_id}`);
         } else {
           res.sendFile(
             path.join(__dirname, '..', '..', 'Public', 'notlogin.html')
