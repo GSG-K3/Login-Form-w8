@@ -1,9 +1,10 @@
-const db_connection = require("./db_config/connection");
-const bcrypt = require("bcryptjs");
+const db_connection = require('./db_config/connection');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 function getUserByEmail(user_email, callback) {
   const sql = {
-    text: "SELECT * FROM users WHERE user_email = $1;",
+    text: 'SELECT * FROM users WHERE user_email = $1;',
     values: [user_email]
   };
   db_connection.query(sql.text, sql.values, (err, result) => {
@@ -12,8 +13,16 @@ function getUserByEmail(user_email, callback) {
   });
 }
 
+function checkPasswordSync(password, hash) {
+  return bcrypt.compareSync(password, hash);
+}
+
+function checkAuthentication(token, salt) {
+  return jwt.verify(token, salt);
+}
+
 function insertUser(userData, callback) {
-  console.log("hello");
+  console.log('hello');
   const hashedPassword = hashPasswordSync(userData.password);
   console.log(hashedPassword);
   const sql = {
@@ -23,7 +32,7 @@ function insertUser(userData, callback) {
       userData.Email,
       hashedPassword,
       userData.tel,
-      "user"
+      'user'
     ]
   };
   db_connection.query(sql.text, sql.values, (err, results) => {
@@ -40,4 +49,9 @@ function hashPasswordSync(password) {
   return bcrypt.hashSync(password, 10);
 }
 
-module.exports = { getUserByEmail, insertUser };
+module.exports = {
+  getUserByEmail,
+  insertUser,
+  checkAuthentication,
+  checkPasswordSync
+};
