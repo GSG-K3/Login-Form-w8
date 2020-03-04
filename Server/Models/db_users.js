@@ -25,6 +25,17 @@ function getUserById(user_id, callback) {
   });
 }
 
+function deleteUserById(user_id, callback) {
+  const sql = {
+    text: 'DELETE FROM users WHERE user_id = $1;',
+    values: [user_id]
+  };
+  db_connection.query(sql.text, sql.values, (err, result) => {
+    if (err) callback(err);
+    callback(null, result.rows);
+  });
+}
+
 function checkPasswordSync(password, hash) {
   return bcrypt.compareSync(password, hash);
 }
@@ -66,5 +77,6 @@ module.exports = {
   insertUser,
   checkAuthentication,
   checkPasswordSync,
-  getUserById
+  getUserById,
+  deleteUserById
 };
