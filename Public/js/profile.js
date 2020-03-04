@@ -47,5 +47,11 @@ function createItems(item) {
 
 function deleteUser(e) {
   e.preventDefault();
-  
+  apiCall('POST', `/api/delete${url}`, null, res => {});
+  // api/delete/url
+  // apicall
+  // in server
+  // delete user
+  // delete cooke
+  // redirect to home
 }

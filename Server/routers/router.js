@@ -10,10 +10,9 @@ router.get('/user/profile/:userId', (req, res) => {
 });
 
 router.get('/api/user/profile/:userId', (req, res) => {
-  
-  db_user.getUserById(req.params.userId ,(err, result)=>{
-   res.send(result[0])
-  })
+  db_user.getUserById(req.params.userId, (err, result) => {
+    res.send(result[0]);
+  });
 });
 router.post('/user/login', (req, res) => {
   const userEmail = req.body.logInEmail;
@@ -45,7 +44,7 @@ router.post('/user/login', (req, res) => {
 });
 
 router.get('/user/logout', (req, res) => {
-  res.clearCookie('token');
+  clearToken();
   res.redirect('/');
 });
 
@@ -65,5 +64,21 @@ router.post('/user/Registration', (req, res) => {
     res.redirect('/');
   });
 });
+
+router.post(`/api/delete/user/profile/:userId`, (req, res) => {
+  if (db_user.checkAuthentication(token, salt)) {
+    db_user.deleteUserById(req.params.userId, (err, result) => {
+      if (err) throw err;
+      clearToken();
+      res.redirect('/');
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+function clearToken() {
+  res.clearCookie('token');
+}
 
 module.exports = router;
