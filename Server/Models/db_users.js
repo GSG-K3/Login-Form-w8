@@ -1,4 +1,6 @@
 const db_connection = require('./db_config/connection');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 function getUserByEmail(user_email, callback) {
   const sql = {
@@ -11,4 +13,12 @@ function getUserByEmail(user_email, callback) {
   });
 }
 
-module.exports = { getUserByEmail };
+function checkPasswordSync(password, hash) {
+  return bcrypt.compareSync(password, hash);
+}
+
+function checkAuthentication(token, salt) {
+  return jwt.verify(token, salt);
+}
+
+module.exports = { getUserByEmail, checkPasswordSync, checkAuthentication };
