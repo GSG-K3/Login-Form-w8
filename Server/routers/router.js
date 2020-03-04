@@ -43,4 +43,21 @@ router.get('/user/logout', (req, res) => {
   res.redirect('/');
 });
 
+router.get('/user/Registration', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'Public', 'Registration.html'));
+});
+
+router.post('/user/Registration', (req, res) => {
+  const userData = req.body;
+  db_user.insertUser(userData, (err, data) => {
+    // err
+    // resu[slt
+    if (err) {
+      //
+      //return
+    }
+    res.redirect('/');
+  });
+});
+
 module.exports = router;
