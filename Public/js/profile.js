@@ -5,16 +5,6 @@ apiCall('GET', `/api${url}`, null, res => {
   profile.appendChild(createItems(res));
 });
 
-/**
-     * 
-     * user_id SERIAL PRIMARY KEY,
-            user_name TEXT NOT NULL,
-            user_email VARCHAR(50) NOT NULL,
-            password VARCHAR(500) NOT NULL,
-            user_telephone NUMERIC NOT NULL,
-            role VARCHAR(50) NOT NULL
-     */
-
 function createItems(item) {
   let divFirst = document.createElement('div');
 
@@ -28,7 +18,7 @@ function createItems(item) {
 
   delbtn.addEventListener('click', deleteUser);
   delbtn.innerHTML = 'Delete Account';
-  delbtn.classList.add('btn');
+  delbtn.classList.add('btn', 'btn-blue');
 
   Name.innerHTML = 'User Name  : ' + item.user_name;
   Email.innerHTML = 'Email : ' + item.user_email;
@@ -47,11 +37,10 @@ function createItems(item) {
 
 function deleteUser(e) {
   e.preventDefault();
-  apiCall('POST', `/api/delete${url}`, null, res => {});
-  // api/delete/url
-  // apicall
-  // in server
-  // delete user
-  // delete cooke
-  // redirect to home
+  apiCall('DELETE', `/api/delete${url}`, null, res => {
+    if (res.status === 'ok') {
+      alert(res.message);
+      window.location.replace('/');
+    }
+  });
 }

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <header class="navbar2">
+    <header class="navbar">
         <div class="container">
             <div class="row">
                 <div class="navbar__logo">
@@ -17,8 +17,8 @@
                 </div>
 
                 <nav class="navbar__nav">
-                    <a href="/"></a>
-
+                    <a href="/">Home</a>
+                    <a href="/user/Registration">Registration</a>
                 </nav>
             </div>
         </div>
@@ -29,19 +29,18 @@
         <section class="">
             <div class="container">
                 <div class="row" id="">
-                  <h1>log in </h1>
-                   <form action ="/user/login"id="Form" method ="POST" class ="Form">
-                   <input id ="logInEmail" name="logInEmail" class ="form-control">Password
-                   <input id ="logInPassword" name ="logInPassword" class ="form-control">
-                   <button id = "logInButt"  name ="logInButt" class = "btn">log in </button>
-                   </form>
-                   <a href ="/user/Registration" id = "regButt" name ="reButt" >Registation</a>
+                    <h1>Log in</h1>
+                    <form action="/user/login" id="Form" method="POST" class="Form">
+                        <input id="logInEmail" name="logInEmail" class="form-control" placeholder="Email" required>
+                        <input id="logInPassword" type="password" name="logInPassword" class="form-control"
+                            placeholder="Password" required>
+                        <button id="logInButt" name="logInButt" class="btn btn-blue">log in </button>
+                    </form>
+                    <a href="/user/Registration" id="regButt" name="reButt" class="btn btn-blue">Registation</a>
                 </div>
             </div>
         </section>
     </div>
-    <script src="/js/apiCall.js"></script>
-    <script src="/js/index.js"></script>
 </body>
 
 </html>

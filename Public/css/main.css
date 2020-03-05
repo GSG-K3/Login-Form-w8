@@ -1,4 +1,4 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css");
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css');
 * {
   margin: 0;
   padding: 0;
@@ -56,7 +56,7 @@ label {
 }
 
 .maindiv {
-  margin-top: 110px;
+  margin-top: 130px;
 }
 
 .maindiv .row {
@@ -65,6 +65,20 @@ label {
 
 .hidden {
   display: none !important;
+}
+
+/* set margin of all input  */
+input,
+button,
+a {
+  margin: 8px;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 8px;
+  padding: 10px;
 }
 /*===================== navbar ====================*/
 .navbar {

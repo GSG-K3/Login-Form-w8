@@ -45,9 +45,8 @@ function checkAuthentication(token, salt) {
 }
 
 function insertUser(userData, callback) {
-  console.log('hello');
   const hashedPassword = hashPasswordSync(userData.password);
-  console.log(hashedPassword);
+  const role = userData.role === undefined ? 'user' : userData.role;
   const sql = {
     text: `INSERT INTO users(user_name,user_email,password,user_telephone,role) VALUES ($1,$2,$3,$4,$5)`,
     values: [
@@ -55,9 +54,10 @@ function insertUser(userData, callback) {
       userData.Email,
       hashedPassword,
       userData.tel,
-      'user'
+      role
     ]
   };
+  console.log('start install');
   db_connection.query(sql.text, sql.values, (err, results) => {
     if (err) {
       console.log(err);
